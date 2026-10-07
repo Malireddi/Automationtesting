@@ -1,0 +1,124 @@
+### Name: Nandyala Malyadri reddy
+### Reg: 212223100037
+
+###Program:
+```
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+MOBILE_NUMBER = "9502675869"
+PRODUCT = "Nokia 1100"
+
+driver = webdriver.Chrome()
+driver.maximize_window()
+
+wait = WebDriverWait(driver, 120)
+
+driver.get("https://www.amazon.in")
+
+print("Amazon opened.")
+
+sign_in = wait.until(
+    EC.element_to_be_clickable(
+        (By.ID, "nav-link-accountList")
+    )
+)
+
+sign_in.click()
+
+print("Sign in page opened.")
+
+mobile_box = wait.until(
+    EC.presence_of_element_located(
+        (
+            By.CSS_SELECTOR,
+            "#ap_email, #ap_email_login"
+        )
+    )
+)
+
+mobile_box.clear()
+mobile_box.send_keys(MOBILE_NUMBER)
+
+print("Mobile number entered automatically.")
+
+continue_button = wait.until(
+    EC.element_to_be_clickable(
+        (By.ID, "continue")
+    )
+)
+
+continue_button.click()
+
+print("Continue clicked.")
+
+print("\n========================================")
+print("COMPLETE AMAZON LOGIN MANUALLY")
+print("Enter OTP when Amazon asks for it.")
+print("Selenium is waiting for successful login...")
+print("========================================\n")
+
+search_box = wait.until(
+    EC.presence_of_element_located(
+        (By.ID, "twotabsearchtextbox")
+    )
+)
+
+print("Login + OTP verification successful!")
+
+search_box.clear()
+search_box.send_keys(PRODUCT)
+
+print("Product entered:", PRODUCT)
+
+search_button = wait.until(
+    EC.element_to_be_clickable(
+        (By.ID, "nav-search-submit-button")
+    )
+)
+
+search_button.click()
+
+print("Search button clicked.")
+
+first_result = wait.until(
+    EC.presence_of_element_located(
+        (
+            By.CSS_SELECTOR,
+            "[data-component-type='s-search-result']"
+        )
+    )
+)
+
+print("Search results loaded.")
+
+product_link = first_result.find_element(
+    By.CSS_SELECTOR,
+    "h2 a"
+)
+
+product_link.click()
+
+print("First product opened.")
+
+add_to_cart = wait.until(
+    EC.element_to_be_clickable(
+        (By.ID, "add-to-cart-button")
+    )
+)
+
+add_to_cart.click()
+
+print("\n========================================")
+print("PRODUCT ADDED TO CART SUCCESSFULLY!")
+print("========================================")
+
+```
+
+
+input("\nPress Enter to close browser...")
+
+driver.quit()
